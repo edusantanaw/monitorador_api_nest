@@ -1,6 +1,14 @@
-import { Body, Controller, Post, HttpException, Inject } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  HttpException,
+  Inject,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateEndPointDto } from './dtos/EndPoint.dto';
 import { CreateService } from '../services/create.service';
+import { AuthGuard } from 'src/main/guards/authenticate.guard';
 
 @Controller('/api/endpoint')
 export class CreateEndPointController {
@@ -8,6 +16,8 @@ export class CreateEndPointController {
     @Inject('CreateEndPointService')
     private readonly createEndPointService: CreateService<IEndPoint, IEndPoint>,
   ) {}
+
+  @UseGuards(AuthGuard)
   @Post()
   public async handle(@Body() data: CreateEndPointDto) {
     try {
