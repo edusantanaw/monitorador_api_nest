@@ -17,6 +17,7 @@ export class UserRepository
     });
     return item as User;
   }
+  
   public async loadByEmail(email: string) {
     const item = await this.prisma.users.findFirst({
       where: {
